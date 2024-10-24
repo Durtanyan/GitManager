@@ -11,12 +11,42 @@
         padding: 0;
         overflow: hidden;
         background-color: #f0f0f0;
+        font-family: Arial, sans-serif;
+        color: #333;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+      }
+      div.scroll {
+        margin: 20px auto;
+        padding: 15px;
+        background-color: #e7f0e9;
+        width: 80%;
+        height: 300px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        white-space: nowrap;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        font-size: 1rem;
+        line-height: 1.6;
+      }
+      center {
+        text-align: center;
       }
     </style>
+    <script src="js/jquery-3.6.3.js"></script>
+    <script src="https://unpkg.com/konva@9/konva.min.js"></script>
   </head>
   <body>
-    <div id="container"></div>
-    <script src="https://unpkg.com/konva@9/konva.min.js"></script>
+    <center>
+      <div class="scroll" id="container"></div>
+    </center>
     <script>
       var width = window.innerWidth;
       var height = window.innerHeight;
@@ -27,43 +57,33 @@
         height: height,
       });
 
-      var layer = new Konva.Layer();
+      function addCircle(stage, x, y, radius, fill, stroke, strokeWidth) {
+        var layer = new Konva.Layer();
+        var circle = new Konva.Circle({
+          x: x,
+          y: y,
+          radius: radius,
+          fill: fill,
+          stroke: stroke,
+          strokeWidth: strokeWidth,
+        });
+        layer.add(circle);
+        stage.add(layer);
+      }
 
-      var rect1 = new Konva.Rect({
-        x: 20,
-        y: 20,
-        width: 100,
-        height: 50,
-        fill: "green",
-        stroke: "black",
-        strokeWidth: 4,
-      });
-      // add the shape to the layer
-      layer.add(rect1);
+      function addCircles(count) {
+        for (let i = 0; i <= count; i++) {
+          x = (i + 1) * 100;
+          y = 200;
+          radius = 10;
+          fill = "red";
+          stroke = "black";
+          strokeWidth = 2;
+          addCircle(stage, x, y, radius, fill, stroke, strokeWidth);
+        }
+      }
 
-      var rect2 = new Konva.Rect({
-        x: 150,
-        y: 40,
-        width: 100,
-        height: 50,
-        fill: "red",
-        shadowBlur: 10,
-        cornerRadius: 10,
-      });
-      layer.add(rect2);
-
-      var rect3 = new Konva.Rect({
-        x: 50,
-        y: 120,
-        width: 100,
-        height: 100,
-        fill: "blue",
-        cornerRadius: [0, 10, 20, 30],
-      });
-      layer.add(rect3);
-
-      // add the layer to the stage
-      stage.add(layer);
+      addCircles(500);
     </script>
   </body>
 </html>
