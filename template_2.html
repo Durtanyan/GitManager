@@ -7,26 +7,17 @@
     <title>Konva Rect Demo</title>
     <style>
       body {
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
         background-color: #f0f0f0;
-        font-family: Arial, sans-serif;
-        color: #333;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        min-height: 100vh;
+      }
+      center {
+        text-align: center;
       }
       div.scroll {
         margin: 20px auto;
         padding: 15px;
         background-color: #e7f0e9;
         width: 80%;
-        height: 300px;
+        max-width: 600px;
         overflow-x: auto;
         overflow-y: hidden;
         white-space: nowrap;
@@ -36,19 +27,18 @@
         font-size: 1rem;
         line-height: 1.6;
       }
-      center {
-        text-align: center;
-      }
     </style>
     <script src="js/jquery-3.6.3.js"></script>
     <script src="https://unpkg.com/konva@9/konva.min.js"></script>
   </head>
   <body>
     <center>
-      <div class="scroll" id="container"></div>
+      <div class="scroll">
+        <div id="container"></div>
+      </div>
     </center>
     <script>
-      var width = window.innerWidth;
+      var width = 5000;
       var height = window.innerHeight;
 
       var stage = new Konva.Stage({
@@ -83,7 +73,7 @@
         }
       }
 
-      addCircles(500);
+      addCircles(100);
     </script>
   </body>
 </html>
