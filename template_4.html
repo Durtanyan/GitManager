@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <title>Konva Rect Demo</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #f0f0f0;
+        font-family: Arial, sans-serif;
+        color: #333;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+      }
+      center {
+        text-align: center;
+      }
+      div.scroll {
+        margin: 20px auto;
+        padding: 15px;
+        background-color: #11c0db;
+        width: 100%;
+        max-width: 500px;
+        overflow-x: auto;
+        overflow-y: auto;
+        white-space: nowrap;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        font-size: 1rem;
+        line-height: 1.6;
+      }
+
+      .container {
+        padding: 5px;
+        background-color: rgb(143, 226, 143);
+        width: 300px;
+        height: 110px;
+        overflow-x: hidden;
+        overflow-y: auto;
+      }
+    </style>
+    <script src="js/jquery-3.6.3.js"></script>
+  </head>
+  <body>
+    <center>
+      <div class="scroll">
+        <div id="container"></div>
+      </div>
+    </center>
+    <script src="https://unpkg.com/konva@9/konva.min.js"></script>
+    <script>
+      var width = 3000;
+      var height = 300;
+
+      var stage = new Konva.Stage({
+        container: "container",
+        width: width,
+        height: height,
+      });
+
+      function addCircle(
+        stage,
+        x,
+        y,
+        radius,
+        fill,
+        stroke,
+        strokeWidth,
+        id_circle
+      ) {
+        var layer = new Konva.Layer();
+        var circle = new Konva.Circle({
+          x: x,
+          y: y,
+          radius: radius,
+          fill: fill,
+          stroke: stroke,
+          strokeWidth: strokeWidth,
+          shadowColor: "black",
+          shadowBlur: 10,
+          shadowOffset: { x: 10, y: 10 },
+          shadowOpacity: 0.5,
+          id: id_circle,
+        });
+        layer.add(circle);
+        stage.add(layer);
+      }
+
+      function addArrow(stage, x, y, x1, y1, radius) {
+        var layer = new Konva.Layer();
+        var newArrow = new Konva.Arrow({
+          points: [x, y, x1 - radius - 5, y1],
+          pointerLength: 20,
+          pointerWidth: 20,
+          stroke: "black",
+          fill: "red",
+          strokeWidth: 1,
+          lineCap: "round",
+          lineJoin: "round",
+          tension: 1,
+          shadowColor: "black",
+          shadowBlur: 10,
+          shadowOffset: { x: 10, y: 10 },
+          shadowOpacity: 0.5,
+        });
+        layer.add(newArrow);
+        stage.add(layer);
+      }
+
+      function addLine(stage, x, y, radius) {
+        var layer = new Konva.Layer();
+        var newLine = new Konva.Line({
+          points: [x, y, x + (y - radius) - radius * 0.3, y],
+          stroke: "red",
+          strokeWidth: 2,
+          lineCap: "round",
+          lineJoin: "round",
+          tension: 1,
+          shadowColor: "black",
+          shadowBlur: 10,
+          shadowOffset: { x: 10, y: 10 },
+          shadowOpacity: 0.5,
+        });
+        layer.add(newLine);
+        stage.add(layer);
+      }
+
+      function addCircles(count, radius, fill, stroke) {
+        for (let i = 0; i <= count; i++) {
+          x = (i + 1) * 100;
+          y = 200;
+          radius = radius;
+          fill = fill;
+          stroke = stroke;
+          strokeWidth = 2;
+          addCircle(stage, x, y, radius, fill, stroke, strokeWidth);
+        }
+      }
+
+      text =
+        "COMPLEX TEXT\n\nAll the world's a stage, and all the men and women merely players. They have their exits and their entrances.";
+      function addComplexText(stage, text, x, y) {
+        var layer = new Konva.Layer();
+        var complexText = new Konva.Text({
+          x: x,
+          y: y,
+          text: text,
+          fontSize: 18,
+          fontFamily: "Calibri",
+          fill: "#555",
+          width: 300,
+          padding: 20,
+          align: "left",
+        });
+        var rect = new Konva.Rect({
+          x: 20,
+          y: 60,
+          stroke: "#555",
+          strokeWidth: 5,
+          fill: "#ddd",
+          width: 300,
+          height: complexText.height(),
+          shadowColor: "black",
+          shadowBlur: 10,
+          shadowOffsetX: 10,
+          shadowOffsetY: 10,
+          shadowOpacity: 0.2,
+          cornerRadius: 10,
+        });
+        layer.add(rect);
+        layer.add(complexText);
+        stage.add(layer);
+      }
+
+      addArrow(stage, 100, 100, 200, 200, 10);
+      addComplexText(stage, text, 20, 60);
+    </script>
+  </body>
+</html>
